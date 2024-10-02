@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "364584292306",
+    "project_id": "cinema-ticket-app-b8070",
+    "storage_bucket": "cinema-ticket-app-b8070.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364584292306:android:c107972596cd0146f1420b",
+        "android_client_info": {
+          "package_name": "com.example.cinematicketapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN0v_ZFCJCMxf7-T1GWkDq08mqIvLmNdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
