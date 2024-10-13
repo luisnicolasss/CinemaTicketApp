@@ -10,20 +10,21 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.cinematicketapp.databinding.ViewholderSliderBinding
-import com.example.cinematicketapp.models.SilderItems
+import com.example.cinematicketapp.models.SliderItems
 
-class SilderAdapter(private val sliderItems: MutableList<SilderItems>,
+class SliderAdapter(private val sliderItems: MutableList<SliderItems>,
                     private val viewPager2: ViewPager2):
-    RecyclerView.Adapter<SilderAdapter.SilderViewHolder>() {
+    RecyclerView.Adapter<SliderAdapter.SilderViewHolder>() {
     private var context: Context?= null
     private val runnable= Runnable {
         sliderItems.addAll(sliderItems)
         notifyDataSetChanged()
     }
     inner class SilderViewHolder(private val binding: ViewholderSliderBinding): RecyclerView.ViewHolder(binding.root) {
-       fun bind(sliderItems: SilderItems){
+       fun bind(sliderItems: SliderItems){
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(60))
            context?.let {
-               Glide.with(it).load(sliderItems.image).apply(RequestOptions().transform(CenterCrop(), RoundedCorners(60))).into(binding.imageSlide)
+               Glide.with(it).load(sliderItems.image).apply(requestOptions).into(binding.imageSlide)
            }
        }
     }
@@ -31,14 +32,14 @@ class SilderAdapter(private val sliderItems: MutableList<SilderItems>,
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SilderAdapter.SilderViewHolder {
+    ): SliderAdapter.SilderViewHolder {
         context=parent.context
         val binding=
             ViewholderSliderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return SilderViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: SilderAdapter.SilderViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SliderAdapter.SilderViewHolder, position: Int) {
        holder.bind(sliderItems[position])
         if (position==sliderItems.size-2){
             viewPager2.post(runnable)

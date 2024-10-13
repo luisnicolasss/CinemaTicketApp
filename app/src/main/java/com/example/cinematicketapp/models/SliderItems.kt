@@ -1,3 +1,3 @@
 package com.example.cinematicketapp.models
 
-data class SilderItems(val image:String="")
+data class SliderItems(val image:String="")
