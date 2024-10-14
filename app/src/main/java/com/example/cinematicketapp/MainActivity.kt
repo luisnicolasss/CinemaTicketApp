@@ -8,11 +8,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.cinematicketapp.adapter.FilmListAdapter
 import com.example.cinematicketapp.adapter.SliderAdapter
 import com.example.cinematicketapp.databinding.ActivityMainBinding
+import com.example.cinematicketapp.models.Film
 import com.example.cinematicketapp.models.SliderItems
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -43,6 +46,62 @@ class MainActivity : AppCompatActivity() {
         )
 
         initBanner()
+        initTopMoving()
+        initUpcoming()
+    }
+
+    private fun initTopMoving() {
+        val myRef: DatabaseReference = database.getReference("Items")
+        binding.progressBarTopMovies.visibility = View.VISIBLE
+        val items =ArrayList<Film>()
+
+        myRef.addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    for (issue in snapshot.children){
+                        items.add(issue.getValue(Film::class.java)!!)
+                    }
+                if (items.isNotEmpty()){
+                    binding.recyclerViewTopMovies.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+                    binding.recyclerViewTopMovies.adapter = FilmListAdapter(items)
+                }
+                    binding.progressBarTopMovies.visibility = View.GONE
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    private fun initUpcoming() {
+        val myRef: DatabaseReference = database.getReference("Upcomming")
+        binding.progressBarUpcoming.visibility = View.VISIBLE
+        val items =ArrayList<Film>()
+
+        myRef.addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    for (issue in snapshot.children){
+                        items.add(issue.getValue(Film::class.java)!!)
+                    }
+                    if (items.isNotEmpty()){
+                        binding.recyclerViewUpcoming.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+                        binding.recyclerViewUpcoming.adapter = FilmListAdapter(items)
+                    }
+                    binding.progressBarUpcoming.visibility = View.GONE
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
     private fun initBanner() {

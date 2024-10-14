@@ -1,5 +1,6 @@
 package com.example.cinematicketapp.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ class SliderAdapter(private val sliderItems: MutableList<SliderItems>,
         notifyDataSetChanged()
     }
     inner class SilderViewHolder(private val binding: ViewholderSliderBinding): RecyclerView.ViewHolder(binding.root) {
+       @SuppressLint("SuspiciousIndentation")
        fun bind(sliderItems: SliderItems){
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(60))
            context?.let {
