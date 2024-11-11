@@ -1,5 +1,6 @@
 package com.example.cinematicketapp.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
@@ -49,6 +50,11 @@ class FilmDetailActivity : AppCompatActivity() {
 
         binding.backBtn.setOnClickListener {
             finish()
+        }
+        binding.buyTicketBtn.setOnClickListener {
+            val intent = Intent(this, SeatListActivity::class.java)
+            intent.putExtra("film", item)
+            startActivity(intent)
         }
 
         val radius = 10f
